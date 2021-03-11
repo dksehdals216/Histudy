@@ -89,7 +89,7 @@
             id="dataform"
         >
             {% csrf_token %}
-            <h5>인증샷 올리기</h5>
+            <h5>인증샷 올리기(* 파일명에 한글이 들어가면 오류가 날 수 있음)</h5>
             <div class="filebox">
               <label for="ex_file">사진촬영/이미지업로드</label>
               {{ form.image }}
