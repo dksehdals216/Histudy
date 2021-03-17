@@ -853,6 +853,19 @@ def rank(request):
         no = F('group__no'),
     ).order_by('-num_posts', 'recent', 'no').exclude(group__no=0)
 
+    # copied by JC to fix a bug in rank (2021-03-17)
+    groupno = UserInfo.objects.filter(year=yearobj, sem=sem).values('group').distinct()
+    total_duration = {}
+    for group in groupno:
+        gno = Group.objects.get(pk=group['group'])
+        data = Data.objects.filter(year=yearobj, sem=sem, group=group['group']).aggregate(Sum('study_total_duration'))
+        total_duration[group[str('group')]] = data['study_total_duration__sum']
+
+    for group in grouplist:
+        group['total_dur'] = total_duration[group['group']]
+
+    # by JC
+
     # userlist = User.objects.filter(Q(is_staff=False) & Q(userinfo__year__year=year) & Q(userinfo__sem=sem)).annotate(
     #     num_posts = Count('data'),
     #     recent = Max('data__date'),
