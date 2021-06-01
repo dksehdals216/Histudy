@@ -68,7 +68,6 @@ class Data(models.Model):
     group = models.ForeignKey(Group, on_delete=models.CASCADE, null=True)
     year = models.ForeignKey(Year, on_delete=models.CASCADE, null=True)
     sem = models.IntegerField(null=True)
-    # image = models.ImageField(upload_to='%Y/%m/%d/orig')
     image = ResizedImageField(size=[640, 480], upload_to='%Y/%m/%d/orig', blank=True, null=True)
     title = models.CharField(max_length=100, blank=True, null=True)
     text = models.TextField(null=True, blank=True)
