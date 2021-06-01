@@ -19,6 +19,7 @@ django-js-asset==1.2.2
 django-sslserver==0.22
 django-summernote==0.8.11.6
 django-user-agents==0.4.0
+django-resized==0.3.11
 et-xmlfile==1.0.1
 gunicorn==20.0.4
 hiredis==1.0.1
