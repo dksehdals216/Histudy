@@ -4,13 +4,14 @@
 
 GCP, NCP 등등을 통해서 ubuntu 18.04 서버를 만든다. 
 
-서버를 업데이트하고 파이썬과 pip를 다운받는다.
+서버를 업데이트하고 파이썬과 pip 및 파이썬 패키지에 필요한 라이브러리를 다운받는다.
 
 ```bash
 sudo apt update
 
-sudo apt install python-pip
-sudo apt install python3-pip
+sudo apt install python-dev python3-dev
+sudo apt install python-pip python3-pip
+sudo apt install build-essential libssl-dev libffi-dev
 ```
 
 아래 명령어를 통해서 버전을 확인한다.
