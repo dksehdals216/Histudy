@@ -81,7 +81,7 @@ django secret key는 이 사이트에서 생성할 수 있다.
 ```json
 {
     "DJANGO_SECRET_KEY": "장고시크릿키",
-    "DB_PASSWORD": "디비비번"
+    "DB_PASSWORD": "MySQL root계정 비밀번호"
 }
 ```
 
