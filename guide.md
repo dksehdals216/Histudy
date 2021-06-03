@@ -4,13 +4,14 @@
 
 GCP, NCP 등등을 통해서 ubuntu 18.04 서버를 만든다. 
 
-서버를 업데이트하고 파이썬과 pip를 다운받는다.
+서버를 업데이트하고 파이썬과 pip 및 파이썬 패키지에 필요한 라이브러리를 다운받는다.
 
 ```bash
 sudo apt update
 
-sudo apt install python-pip
-sudo apt install python3-pip
+sudo apt install python-dev python3-dev
+sudo apt install python-pip python3-pip
+sudo apt install build-essential libssl-dev libffi-dev
 ```
 
 아래 명령어를 통해서 버전을 확인한다.
@@ -80,7 +81,7 @@ django secret key는 이 사이트에서 생성할 수 있다.
 ```json
 {
     "DJANGO_SECRET_KEY": "장고시크릿키",
-    "DB_PASSWORD": "디비비번"
+    "DB_PASSWORD": "DB비번(MySQL root계정 비밀번호와 같아야함)"
 }
 ```
 
@@ -100,8 +101,6 @@ MySQL을 서버에 설치한다.
 sudo apt install mysql-server
 ```
 
-- 참고: MySQL 설치 후 최초 비밀번호를 요구한다면 아래와 같이 ~/Histudy/pystagram/settings.py에 저장되어 있는 DB 비밀번호와 같이 입력한다.
-
 기본값으로 설정되어 있는 root의 비밀번호를 바꾸기 위해서 mysql을 실행시키고 아래의 명령어를 입력한다.
 
 ```bash
@@ -110,7 +109,8 @@ sudo mysql
 alter user 'root'@'localhost' identified with mysql_native_password by 'password’;
 ```
 
-설정한 password는 ~/Histudy/pystagram/settings.py에 있는 DB 비밀번호에 입력한다.
+설정한 password는 ~/HisSecret/secret.json에 있는 DB 비밀번호와 같아야 한다.
+
 
 MySQL이 한글로 된 데이터를 저장할 수 있도록 `default character set`을 변경해야 한다
 
