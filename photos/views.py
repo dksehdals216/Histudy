@@ -5,7 +5,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse
 
-from .models import Data, Announcement, Profile, Verification, Year, UserInfo, StudentInfo, Group, Current
+# by Group5 - Sumi(21700520@handong.edu) for adding 'Answer' 
+from .models import Data, Announcement, Profile, Verification, Year, UserInfo, StudentInfo, Group, Current, Answer
 from .forms import DataForm, AnnouncementForm#, ProfileForm
 
 from django.views.generic import ListView
@@ -1737,3 +1738,71 @@ def img_download(request, year, sem):
 
 
     return response
+
+# made by Group5 - Sumi(21700520@handong.edu) to add new feature 'register' (2021-06-04)
+def register_form(request):
+    
+    ctx = {}
+
+    if request.method == 'POST':
+        # time stamp ?
+
+        check_notice = request.POST['check_notice']
+        student_id = request.POST['student_id']
+        name = request.POST['name']
+        gender = request.POST['gender']
+        phone = request.POST['phone']
+        study_type = request.POST['study_type']
+        want_member = request.POST['want_member']
+        
+        class1_code = request.POST['class1_code']
+        class1_name = request.POST['class1_name']
+        class1_prof = request.POST['class1_prof']
+        
+        class2_code = request.POST['class2_code']
+        class2_name = request.POST['class2_name']
+        class2_prof = request.POST['class2_prof']
+
+        class3_code = request.POST['class3_code']
+        class3_name = request.POST['class3_name']
+        class3_prof = request.POST['class3_prof']
+
+        demand = request.POST['demand']
+        english_ok = request.POST['english_ok']
+        club_study = request.POST['club_study']
+        do_club = request.POST['do_club']
+        club_name = request.POST['club_name']
+        info_agree = request.POST['info_agree']
+
+        # 이미 해당 학번의 신청 정보가 있을 경우 받아옴
+        try:
+            answer = Answer.objects.get(student_id=student_id)
+        except:
+            user_info = None
+
+        # 이미 정보가 있으면 update ==> 이거 되는지 확인해봐야 함
+        if answer:
+            Answer.objects.update_or_create(check_notice=check_notice, student_id=student_id, name=name, gender=gender, 
+            phone=phone, study_type=study_type, want_member=want_member, class1_code=class1_code, class1_name=class1_name, class1_prof=class1_prof,
+            class2_code=class2_code, class2_name=class2_name, class2_prof=class2_prof, class3_code=class3_code, class3_name=class3_name, class3_prof=class3_prof,
+            demand=demand, english_ok=english_ok, club_study=club_study, do_club=do_club, club_name=club_name, info_agree=info_agree)
+
+            msg = student_id + name + '님의 스터디 신청 수정이 완료되었습니다'
+            messages.success(request, msg)
+
+        # 없으면 create
+        else:
+            Answer.objects.create(check_notice=check_notice, student_id=student_id, name=name, gender=gender, 
+            phone=phone, study_type=study_type, want_member=want_member, class1_code=class1_code, class1_name=class1_name, class1_prof=class1_prof,
+            class2_code=class2_code, class2_name=class2_name, class2_prof=class2_prof, class3_code=class3_code, class3_name=class3_name, class3_prof=class3_prof,
+            demand=demand, english_ok=english_ok, club_study=club_study, do_club=do_club, club_name=club_name, info_agree=info_agree)
+
+            msg = student_id + name + '님의 스터디 신청이 완료되었습니다'
+            messages.success(request, msg)
+
+    else: 
+        pass
+        
+    return render(request, 'register_form.html', ctx)
+
+# by Group5 - Sumi(21700520@handong.edu)
