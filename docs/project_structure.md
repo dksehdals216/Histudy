@@ -2,7 +2,10 @@
 
 Here is a list of files and its description in each folder
 
-|-- node_modules: imported jquery library files included in the project
+
+You will find the source code here:
+
+    |-- node_modules: imported jquery library files included in the project
     |   '-- jquery
     |       |-- dist
     |       |-- external/sizzle
