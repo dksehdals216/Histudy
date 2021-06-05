@@ -1770,9 +1770,9 @@ def register_form(request):
         class3_prof = request.POST['class3_prof']
 
         demand = request.POST['demand']
-        english_ok = request.POST.get['english_ok', NULL]
-        club_study = request.POST.get['club_study', NULL]
-        do_club = request.POST.get['do_club', NULL]
+        english_ok = request.POST.get['english_ok', no] #have to fix
+        club_study = request.POST.get['club_study', no]
+        do_club = request.POST.get['do_club', no]
         club_name = request.POST['club_name']
         info_agree = request.POST['info_agree']
         
