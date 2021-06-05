@@ -1,10 +1,8 @@
-서버는 우분투 18.04 환경이다.
+Server is tested on Ubuntu 21.04 Environment. 
 
-### Step 1. 가상환경 설정
+### Step 1. Virtual Environment Settings
 
-GCP, NCP 등등을 통해서 ubuntu 18.04 서버를 만든다. 
-
-서버를 업데이트하고 파이썬과 pip 및 파이썬 패키지에 필요한 라이브러리를 다운받는다.
+After updating python and pip packages, we need to install related libraries required for packages.
 
 ```bash
 sudo apt update
@@ -14,28 +12,15 @@ sudo apt install python-pip python3-pip
 sudo apt install build-essential libssl-dev libffi-dev
 ```
 
-아래 명령어를 통해서 버전을 확인한다.
+We will assume you have a python version of at least Python 3.6.9, if not, please upgrade do meet requirements.
 
-```bash
-python3 -V
-# ex) 3.6.9
-
-# 3.6버전이 아니라면
-sudo add-apt-repository ppa:deadsnakes/ppa \
-&& sudo apt update 
-```
-
-밑에 있는 블로그를 참고해서 python3의 버전을 3.6로 변경하자.
-
-[[Django] Python 3.5에서 Python 3.7로 업그레이드 하기(mod_wsgi업그레이드) (Ubuntu)](https://dodormitory.tistory.com/10)
-
-가상환경을 만들기 위해 필요한 `virtualenvwrapper` 를 받는다.
+Since we need a virtual environment, we install: `virtualenvwrapper` 
 
 ```bash
 sudo pip3 install virtualenvwrapper
 ```
 
-`.bashrc` 파일을 sudo vi ~/.bashrc로 열고, 아래 내용을 파일 제일 밑에 추가한다.
+open `.bashrc`  with sudo vi ~/.bashrc, and add following at the bottom of the file.
 
 ```bash
 export WORKON_HOME=$HOME/.virtualenvs
@@ -44,64 +29,77 @@ export PROJECT_HOME=$HOME/Devel
 source /usr/local/bin/virtualenvwrapper.sh
 ```
 
-그리고 새로운 가상환경을 만들기 전에 아래의 명령어를 실행해서 bash 파일을 실행한다.
+Reload the updated bashrc file:
 
 ```bash
 source ~/.bashrc
 ```
 
-원하는 이름으로 가상환경을 만들고 Histudy를 git clone 한다. 그리고 필요한 Python Module를 가상환경에 다운받는다. 
+After creating a virtual environment, clone the Histudy repository, and install required Python Modules. 
 
 ```bash
 mkvirtualenv histudy
-# histutor 파이썬 가상환경으로 activate되어있는 상태
 
 git clone https://github.com/dodoyoon/Histudy.git
 
 chmod -R 777 ~/Histudy
 
 cd ~/Histudy
+
 pip3 install -r server_requirements.txt
 ```
 
-- 참고 : 가상환경 activate / deactivate 하는 법
+pymysql will occasionally cause errors, which in that case, you can edit:
+```bash
+cd Histudy/pystagram/__init__.py
+```
+and edit `pymysql.version_info = (1, 4, 0, "final", 0)`
+
+
+- Reference : how to activate/deactivate virtual env
     - activate : `source ~/.virtualenvs/histudy/bin/activate`
     - deactivate : `deactivate`
 
-### Step 2. HisSecret 설정
+### Step 2. HisSecret Settings
 
-HisSecret은 Django에 사용되는 비밀번호 같은 정보가 github로 노출되지 않게 비밀번호를 저장해놓은 github private repository다. 이 HisSecret은 개개인이 만들기를 권장한다. 형식은 다음과 같다. 
+HisSecret is a Django password configuration file that is used for privacy in order to protect it from public github repositories. It is recommended to use personal HisSecret files. Here we show how to create a sample.
 
-django secret key는 이 사이트에서 생성할 수 있다.
+django secret key can be generated in the following website.
 
 [Djecrety](https://djecrety.ir/)
 
-아래는 우리가 사용한 HisSecret에 있는 secret.json 파일이다. 
+First, create a directory called HisSecret inside Histudy and create/edit the secret file.
+```bash
+mkdir HisSecret
+cd HisSecret
+touch secret.json
+```
 
+Below is a sample secret.json file
 ```json
 {
-    "DJANGO_SECRET_KEY": "장고시크릿키",
-    "DB_PASSWORD": "DB비번(MySQL root계정 비밀번호와 같아야함)"
+    "DJANGO_SECRET_KEY": "Django generated key goes here",
+    "DB_PASSWORD": "DB password(must be the same as MySQL root account password)"
 }
 ```
 
-이제 Histudy/pystagram/settings.py에서 SECRET_BASE 부분을 아래와 같이 절대경로로 바꿔준다. 
+Now we change the path of SECRET_BASE in Histudy/pystagram/settings.py file to an absolute path.
 
 ```python
 SECRET_BASE = '/home/g21300109/HisSecret'
 ```
 
-이런 방식이 싫다면 서버의 Histudy/pystagram/settings.py에서 하드코딩해도 된다. 
+Alternatively, you can hard code the path inside Histudy/pystagram/settings.py
 
-### Step 3. Mysql 설치 및 연동
+### Step 3. Installing and connecting Mysql 
 
-MySQL을 서버에 설치한다.
+Install MySQL onto the server.
 
 ```bash
 sudo apt install mysql-server
 ```
 
-기본값으로 설정되어 있는 root의 비밀번호를 바꾸기 위해서 mysql을 실행시키고 아래의 명령어를 입력한다.
+Change the default root password by entering mysql.
 
 ```bash
 sudo mysql
@@ -109,12 +107,12 @@ sudo mysql
 alter user 'root'@'localhost' identified with mysql_native_password by 'password’;
 ```
 
-설정한 password는 ~/HisSecret/secret.json에 있는 DB 비밀번호와 같아야 한다.
+The password must be the same as the password in ~/HisSecret/secret.json
 
 
-MySQL이 한글로 된 데이터를 저장할 수 있도록 `default character set`을 변경해야 한다
+We need to change `default ccharacter set` so that MySQL can take Korean
 
-`sudo vi /etc/mysql/my.cnf` 로 파일을 열고, 파일 끝에 아래 내용을 추가한다.
+open `sudo vi /etc/mysql/my.cnf` and add the code.
 
 ```sql
 [client]
@@ -129,9 +127,10 @@ init-connect='SET NAMES utf8'
 character-set-server = utf8
 ```
 
-`sudo service mysql restart`로 mysql을 재시작한다.
+Restart MySQL
+`sudo service mysql restart`
 
-MySQL을 다시 실행한 뒤 utf가 제대로 변경되었는지 확인한다.
+check utf has changed correctly after restarting MySQL
 
 ```sql
 mysql -u root -p
@@ -140,20 +139,19 @@ status
 ```
 
 
-'study'라는 이름의 DB 생성한다. 꼭 character set을 변경한 후에 생성해야지 데이터베이스의 character set도 utf로 설정된다.
+Create a database with the name 'study'. You must change the character set before creating dataase to apply character set to utf.
 
 ```sql
 CREATE DATABASE study;
 ```
 
-**에러 수정**
+**Fixing Errors**
 
-[https://dodormitory.tistory.com/8](https://dodormitory.tistory.com/8) 링크로 가서 4 - 에러 수정 부분을 참고하여 고치자
+[https://dodormitory.tistory.com/8](https://dodormitory.tistory.com/8) If you have more errors, check the link out.
 
- **테이블 생성하기**
+ **Create Table**
 
-[manage.py](http://manage.py) 파일이 있는 디렉토리로 이동하고, migrate 명령어로 테이블을 생성한다.
-
+[manage.py](http://manage.py) Let's run the actual code after creating the table.
 ```bash
 cd ~/Histudy
 
@@ -161,27 +159,26 @@ python3 manage.py makemigrations
 
 python3 manage.py migrate
 
-# static file을 .static_root 디렉토리에 모으는 명령어
+# Collects static file to .static_root Directory
 python3 manage.py collectstatic
 ```
 
-mysql에서 study의 table을 보면 정상적으로 table들이 생성된 것을 볼 수 있다.
 
-### Step 4. Apache 설치 및 연동
+### Step 4. Installing and Linking Apache
 
-`deactivate` 로 가상환경에서 빠져나온다.
+Use `deactivate` to leave virtual env
 
-**apache**와 wsgi 모듈인 libapache2-mod-wsgi, 파이썬 연결 모듈 libapache2-mod-wsgi-py3를 설치한다.
+**apache** and wsgi Module libapache2-mod-wsgi, Python linking module libapache2-mod-wsgi-py3 needs to be installed.
 
 ```bash
-sudo apt-get install apache2                  # apache2 설치
-sudo apt-get install libapache2-mod-wsgi      # wsgi 모듈
+sudo apt-get install apache2                  # install apache2 
+sudo apt-get install libapache2-mod-wsgi      # wsgi Module
 sudo apt-get install libapache2-mod-wsgi-py3
 ```
 
-`sudo vim /etc/apache2/sites-available/000-default.conf` 를 통해서 파일을 열고 아래처럼 설정한다.
+`sudo vim /etc/apache2/sites-available/000-default.conf` open 000-default.conf and set is as below:
 
-- 설정 파일 가이드라인
+- Setting file guideline
 
 ```bash
 <VirtualHost *:80>
@@ -216,7 +213,7 @@ WSGIScriptAlias / {wsgi.py가 있는 디렉토리의 주소/wsgi.py}
 </VirtualHost>
 ```
 
-히즈튜터에 맞는 설정
+Settings for Histudy
 
 ```bash
 <VirtualHost *:80>
@@ -261,25 +258,26 @@ WSGIScriptAlias / /home/g21300109/Histudy/pystagram/wsgi.py
 </VirtualHost>
 ```
 
-이후 가상환경을 다시 작동한다.
+Reactivate virtual env
 
 ```bash
-source ~/.virtualenvs/{가상환경이름}/bin/activate
+source ~/.virtualenvs/{virtualenv name}/bin/activate
 ```
 
-파이썬 모듈인 `uwsgi`를 설치한다.
+Install Python Module `uwsgi`
 
 ```bash
 pip install uwsgi
 ```
 
-uwsgi 가 설치되지 않는다면 아래 블로그를 참고하자
+if uwsgi cannot be installed properly, check reference below
 
-[pip3 install uwsgi 설치 에러 Failed building wheel for uwsgi](https://integer-ji.tistory.com/294)
+[pip3 install uwsgi install error:Failed building wheel for uwsgi](https://integer-ji.tistory.com/294)
 
-이제 django 사용 포트를 열어야 한다.
 
-먼저 ufw로 방화벽에서 해당 포트를 개방한다. iptables의 해당 포트를 개방한다. 마지막으로 서버를 실행시켜서 해당 포트가 열린 것을 확인한다.
+Now we need to open ports with Django 
+
+First we use ufw to open firewall ports on the iptables. Now we can check if ports are open on the Server
 
 ```bash
 sudo ufw allow 8000 
@@ -289,9 +287,9 @@ sudo iptables -I INPUT -p tcp --dport 8000 -j ACCEPT
 python manage.py runserver 0.0.0.0:8000 
 ```
 
-Server_IP_Address:8000으로 접속하면 Histudy가 떠야 정상이다.
+Server_IP_Address:8000 should now show Histudy.
 
-`sudo vi /etc/apache2/ports.conf` 로 /etc/apache2/ports.conf 파이파일을 열고, 위에서 열게된 포트를 추가한다. Listen 80밑에 Listen 8000을 추가하면 된다.
+`sudo vi /etc/apache2/ports.conf` to open ports.conf and add the opened ports above: 
 
 ```bash
 #Listen 추가포트
@@ -299,84 +297,65 @@ Listen 80
 Listen 8000
 ```
 
-`sudo service apache2 restart` 로 Apache를 재시작한다.
+`sudo service apache2 restart` to restart Apache
 
-이제 `Server_Ip_Address:8000`으로 접속하면 histutor가 성공적으로 보이는 것을 볼 수 있다.
+Now `Server_Ip_Address:8000`will show histutor successfully.
 
-### Step 5. Google Login을 위한 Social App 등록하기
+### Step 5. Register Social App for Google Logins
 
-[[Django] Google 계정으로 로그인하기 (로컬 서버 + 실제 서버)](https://dodormitory.tistory.com/9)
+[[Django] Login with Google Account (Local/Real Server)](https://dodormitory.tistory.com/9)
 
-위 블로그 포스트를 참고하면 된다. Google OAuth를 사용해서 도메인 주소를 등록하고 Django에서 Google Social Application을 활성화한다. 
+Reference above post to use Google OAuth to upload Domain address with Django for Google Social Application.
 
-### Step 6. Let's Encrypt로 https 설정하기
 
-[Let's Encrypt를 사용하여 HTTPS 설정하기](https://dodormitory.tistory.com/11)
+### Step 6. Use Let's Encrypt for https 
 
-위 블로그 포스트를 참고하자.
+[Use Let's Encrypt for HTTPS ](https://dodormitory.tistory.com/11)
 
-https설정을 마친 후 Step4의 블로그 포스트를 참고하여 https로 시작하는 도메인도 추가해줘야 한다.
 
-### Step 7. 현재 연도와 학기 설정하기
+After configuring https, check the reference in Step4 and add https to the domain.
 
-Histudy를 사용하기 위해선 현재 연도와 학기를 설정해주어야 한다. 이를 위해선 관리자로 로그인할 필요가 있는데,관리자를 만드는 방법은 다음과 같다.
+### Step 7. Set current year and semester
 
+Histudy needs current year and semester information to run properly. To do this you need admin access, and you can create it through:
 ```bash
-cd ~/Histudy/ # manage.py가 있는 디렉토리로 이동
+cd ~/Histudy/ 
 python3 manage.py createsuperuser
 ```
 
-`https://{histudy ip address 또는 domain name}/admin` 으로 접속하면 관리자 페이지가 나온다. 
-관리자로 로그인 후, https://www.histudy.cafe24.com/set_current (이번 년도 & 학기 지정하기)로 가서 현재 년도와 학기를 지정해준다. 
+`https://{histudy ip address}/admin` will show the admin page
+After logging in as admin, go to: https://www.histudy.cafe24.com/set_current and set the current year and semester.
 
-### 개발 팁
-**1. Super User 생성하기**
+### Tips
+**1. Enabling debug mode**
 
-장고의 관리자 계정을 생성하기 위해서는 
+Often times if a server error occurs, the Server will only show Server Internal Error without the exact cause.
 
-	1. 먼저 가상환경을 켜고: source ~/.virtualenvs/histudy/bin/activate
-	2. manage.py 파일이 있는 디렉토리로 이동한다. : cd ~/Histudy
-	3. Super User를 생성한다. : python3 manage.py createsuperuser
+We can view this by enabling 'DEBUG' variable to True in:~/Histudy/pystagram/settings.py 
 
-이 과정을 거치면 Super User가 생성되고 장고 관리자 페이지(주소: Histutor_domain/admin)로 접속할 수 있게 된다.
+DEBUG has security issues in deployment and must be set to FALSE later
 
 
+**2. Editing or adding Static Files**
 
-**2. 더 자세한 에러메시지 보기**
+Statif files in Django (such as css, js, etc) are kept in one place.
 
-서버에서 문제가 생기면 Server Internal Error만 달랑 떠서 문제의 원인을 정확히 알 수 없다.
+Thus edited or added static files must be added to that single directory.
 
-그럴 때, ~/Histudy/pystagram/settings.py 파일에서 'DEBUG' 라는 변수를 True로 변경하면 됩니다.
+	1. Enable virtual env: source ~/.virtualenvs/histudy/bin/activate
+	2. cd ~/Histudy
+	3. python3 manage.py collectstatic
 
-하지만 실제 서비스에서는 보안상의 이유로 DEBUG는 False 이어야 합니다. 
-
-따라서 에러를 고친 다음에는 DEBUG를 False로 변경해 주시기 바랍니다.
-
-
-
-**3. Static File을 수정하거나 추가한 경우**
-
-장고에서는 Static File(css, js) 들을 한 곳에 모아두고 사용한다. 
-
-그래서 수정되거나 추가된 Static File들은 해당 디렉토리에 추가가 되어야 한다. 
-
-이를 추가하기 위한 과정은 다음과 같다. 
-
-	1. 먼저 가상환경을 켜고: source ~/.virtualenvs/histudy/bin/activate
-	2. manage.py 파일이 있는 디렉토리로 이동한다. : cd ~/Histudy
-	3. collectstatic 명령어를 실행한다. : python3 manage.py collectstatic
-
-그러면 'This will overwrite existing files!' 와 같은 경고문이 뜨는데 그냥 yes를 치면 된다.
+There will be a confirmation: 'This will overwrite existing files!' which you can accept.
 
 
-
-**4. 서버에서 자주 사용하는 명령어**
+**4. Common commands in the server**
 
 ```bash
-# Apache 관련
-1. 에러로그파일 위치: /var/log/apache2/error.log
-2. 아파치 Config파일 위치: /etc/apache2/sites-available/000-default-le-ssl.conf
-3. 아파치 재시작: sudo service apache2 restart
+# Apache related
+1. Error log file path: /var/log/apache2/error.log
+2. Apache config file path: /etc/apache2/sites-available/000-default-le-ssl.conf
+3. Restart Apache: sudo service apache2 restart
 
 ```
 
