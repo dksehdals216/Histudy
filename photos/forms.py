@@ -36,20 +36,45 @@ class DataForm(forms.ModelForm):
         queryset = UserInfo.objects.none()
     )
 
-
-    study_start_time = forms.CharField(label='', widget=forms.TextInput(
-        attrs={
-            'class': 'form-control',
-            'placeholder': '공부를 시작한 시간을 입력해 주세요. Ex) 18:30',
-            }
-        ))
-
-    study_total_duration = forms.IntegerField(label='', widget=forms.NumberInput(
-            attrs={
-                'class': 'form-control',
-                'placeholder': '스터디 시간을 분 단위으로 써주세요. Ex) 75'
-            }
-        ))
+    __hour_choice = (
+        ('0', '0'), ('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5'), ('6', '6'), 
+        ('7', '7'), ('8', '8'), ('9', '9'), ('10', '10'), ('11', '11'), ('12', '12'), 
+        ('13', '13'), ('14', '14'), ('15', '15'), ('16', '16'), ('17', '17'), ('18', '18'), 
+        ('19', '19'), ('20', '20'), ('21', '21'), ('22', '22'), ('23', '23'), 
+    )
+    __minute_choice = (
+        ('00', '00'), ('05', '05'),
+        ('10', '10'), ('15', '15'), 
+        ('20', '20'), ('25', '25'), 
+        ('30', '30'), ('35', '35'),
+        ('40', '40'), ('45', '45'), 
+        ('50', '50'), ('55', '55'), 
+    )
+    __minute_choice_2 = (
+        ('00', '00'), ('05', '05'),
+        ('10', '10'), ('15', '15'), 
+        ('20', '20'), ('25', '25'), 
+        ('30', '30'), ('35', '35'),
+        ('40', '40'), ('45', '45'), 
+        ('50', '50'), ('55', '55'), 
+        ('60', '60'), ('65', '65'),
+        ('70', '70'), ('75', '75'), 
+        ('80', '80'), ('85', '85'), 
+        ('90', '90'), ('95', '95'),
+        ('100', '100'), ('105', '105'), 
+        ('110', '110'), ('115', '115'), 
+        ('120', '120'), ('125', '125'), 
+        ('130', '130'), ('135', '135'), 
+        ('140', '140'), ('145', '145'), 
+        ('150', '150'), ('155', '155'), 
+        ('160', '160'), ('165', '165'), 
+        ('170', '170'), ('175', '175'), 
+        ('180', '180'), 
+    )
+    study_start_time = forms.CharField(label='', widget=forms.Select(choices=__hour_choice))
+    study_start_time_minute = forms.CharField(label='', widget=forms.Select(choices=__minute_choice))
+    
+    study_total_duration = forms.IntegerField(label='', widget=forms.Select(choices=__minute_choice_2))
 
     title = forms.CharField(label='', widget=forms.TextInput(
         attrs={
