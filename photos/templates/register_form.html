@@ -158,7 +158,7 @@
             </div>
 
             <div>
-                <input type="radio" id="both" name="study_type" value="both">
+                <input type="radio" id="both" name="study_type" value="both" checked>
                 <label class="lba" for="both">비대면/대면 상관없음</label>
             </div>
 
@@ -166,7 +166,7 @@
 
             <label for="question">함께 스터디 그룹하기로 이야기 된 학우 정보 있다면 기입. 해당 학우들도 반드시 신청을 따로 해야 함. (이름과 스마트폰 마지막 4자리.) <br>예:
                 홍길동(1234), 김길동(2345) 우선순위 과목도 일치해야 함.</label><br>
-            <input type="text" name="want_member" style="width:400px;" required>
+            <input type="text" name="want_member" style="width:400px;">
             <br><br>
 
 
@@ -191,7 +191,7 @@
             <br>
 
             <label for="question">1순위 매칭 과목코드 (예: ITP20005)<should> *</should></label><br>
-            <input type="text" name="class1_code" pattern="[0-9][a-z]{8}" maxlength="8" style="width:200px;" required>
+            <input type="text" name="class1_code" maxlength="8" style="width:200px;" required>
             <br><br>
 
             <label for="question">1순위 매칭 과목명 (예: Programming Language Theory)<should> *</should></label><br>
@@ -203,7 +203,7 @@
             <br><br>
 
             <label for="question">2순위 매칭 과목코드 (예: ITP20005)</label><br>
-            <input type="text" name="class2_code" pattern="[0-9][a-z]{8}" maxlength="8" style="width:200px; ">
+            <input type="text" name="class2_code" maxlength="8" style="width:200px;" >
             <br><br>
 
             <label for="question">2순위 매칭 과목명 (예: Programming Language Theory)</label><br>
@@ -215,7 +215,7 @@
             <br><br>
 
             <label for="question">3순위 매칭 과목코드 (예: ITP20005)</label><br>
-            <input type="text" name="class3_code" pattern="[0-9][a-z]{8}" maxlength="8" style="width:200px; ">
+            <input type="text" name="class3_code" maxlength="8" style="width:200px;" >
             <br><br>
 
             <label for="question">3순위 매칭 과목명 (예: Programming Language Theory)</label><br>
@@ -227,7 +227,7 @@
             <br><br>
 
             <label for="question">기타 요청사항</label><br>
-            <input type="text" name=demand style="width:400px;" required>
+            <input type="text" name=demand style="width:400px;">
             <br><br>
 
             <hr>
@@ -239,7 +239,7 @@
                 <label class="lba" for="yes">예</label>
             </div>
             <div>
-                <input type="radio" id="no" name="english_ok" value="no">
+                <input type="radio" id="no" name="english_ok" value="no" checked> <!-- have to fix MultiValueDictKeyError -->
                 <label class="lba" for="woman">아니오</label>
             </div>
             <br>
@@ -250,7 +250,7 @@
                 <label class="lba" for="yes">예</label>
             </div>
             <div>
-                <input type="radio" id="no" name="club_study" value="no">
+                <input type="radio" id="no" name="club_study" value="no" checked>
                 <label class="lba" for="woman">아니오</label>
             </div>
             <br>
@@ -261,7 +261,7 @@
                 <label class="lba" for="yes">예</label>
             </div>
             <div>
-                <input type="radio" id="no" name="do_club" value="no">
+                <input type="radio" id="no" name="do_club" value="no" checked>
                 <label class="lba" for="woman">아니오</label>
             </div>
             <br>
@@ -272,7 +272,7 @@
 
             <label for="question">개인정보제공에 동의합니까? (동의하지 않으면 스터디 신청이 안 됨)<should> *</should></label><br>
             <div>
-                <input type="radio" id="yes" name="info_agree" value="yes" required>
+                <input type="radio" id="yes" name="info_agree" value="yes" checked required>
                 <label class="lba" for="yes">예</label>
             </div>
             <div>

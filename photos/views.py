@@ -189,7 +189,7 @@ def data_upload(request):
     else:
         ctx['code_time'] = 0
 
-    if request.method == "GET":
+    if request.method.get == "GET":
         if is_mobile or is_tablet:
             form = DataForm(user=request.user, is_mobile=True)
             form.set_is_mobile()
@@ -1740,9 +1740,10 @@ def img_download(request, year, sem):
     return response
 
 
+@csrf_exempt
 # made by Group5 - Sumi(21700520@handong.edu) to add new feature 'register' (2021-06-04)
 def register_form(request):
-
+    
     ctx = {}
 
     if request.method == 'POST':
@@ -1755,11 +1756,11 @@ def register_form(request):
         phone = request.POST['phone']
         study_type = request.POST['study_type']
         want_member = request.POST['want_member']
-
+        
         class1_code = request.POST['class1_code']
         class1_name = request.POST['class1_name']
         class1_prof = request.POST['class1_prof']
-
+        
         class2_code = request.POST['class2_code']
         class2_name = request.POST['class2_name']
         class2_prof = request.POST['class2_prof']
@@ -1774,14 +1775,12 @@ def register_form(request):
         do_club = request.POST['do_club']
         club_name = request.POST['club_name']
         info_agree = request.POST['info_agree']
-
+        
         # 이미 해당 학번의 신청 정보가 있을 경우 받아옴
         try:
             answer = Answer.objects.get(student_id=student_id)
         except:
-            user_info = None
-
-    
+            answer = None
 
         # 이미 정보가 있으면 update ==> 이거 되는지 확인해봐야 함
         if answer:
@@ -1805,7 +1804,7 @@ def register_form(request):
 
     else: 
         pass
-
+        
     return render(request, 'register_form.html', ctx)
 
 # by Group5 - Sumi(21700520@handong.edu)

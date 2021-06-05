@@ -120,8 +120,6 @@ def create_group_verification(sender, instance, created, **kwargs):
 def save_group_verification(sender, instance, **kwargs):
     instance.verification.save()
 
-
-
 # made by Group5 - Sumi(21700520@handong.edu) to add new feature 'register' (2021-06-03)
 class Answer(models.Model):
     timestamp = models.DateTimeField(default=timezone.now)
