@@ -1770,19 +1770,17 @@ def register_form(request):
         class3_prof = request.POST['class3_prof']
 
         demand = request.POST['demand']
-        english_ok = request.POST.get['english_ok', False]
-        club_study = request.POST['club_study', False]
-        do_club = request.POST['do_club', False]
+        english_ok = request.POST.get['english_ok', NULL]
+        club_study = request.POST.get['club_study', NULL]
+        do_club = request.POST.get['do_club', NULL]
         club_name = request.POST['club_name']
         info_agree = request.POST['info_agree']
-
-        answer
         
         # 이미 해당 학번의 신청 정보가 있을 경우 받아옴
         try:
             answer = Answer.objects.get(student_id=student_id)
         except:
-            user_info = None
+            answer = None
 
         # 이미 정보가 있으면 update ==> 이거 되는지 확인해봐야 함
         if answer:
