@@ -19,4 +19,6 @@ urlpatterns = [
     path('no_student_id/<int:pk>/', views.no_student_id, name='no_student_id'),
     path('delete_userinfo/', views.delete_userinfo, name='delete_userinfo'),
     path('delete_userinfo_confirm/<int:year>/<int:sem>/<int:group_no>/', views.delete_userinfo_confirm, name='delete_userinfo_confirm'),
+    # made by Group5 - Sumi(21700520@handong.edu) to add new feature 'register' (2021-06-03)
+    path('register_form/', views.register_form, name='register_form')
 ]
