@@ -20,4 +20,16 @@ urlpatterns = [
     path('no_student_id/<int:pk>/', views.no_student_id, name='no_student_id'),
     path('delete_userinfo/', views.delete_userinfo, name='delete_userinfo'),
     path('delete_userinfo_confirm/<int:year>/<int:sem>/<int:group_no>/', views.delete_userinfo_confirm, name='delete_userinfo_confirm'),
+    # made by Group5 - Sumi(21700520@handong.edu) to add new feature 'register' (2021-06-03)
+    path('register_form/', views.register_form, name='register_form'),
+    # made by Group5 - Sumi(21700520@handong.edu) to add new feature 'group_match' (2021-06-05)
+    '''
+    아래 주석처리한 두 라인 추가시 다음 에러 발생하여 임의로 주석처리해둠 - 21500740@handong.edu
+      File "/home/wooseokyourself/Histudy-issue4/photos/urls.py", line 25, in <module>
+        path('group_match/', views.group_match, name='group_match'), 
+    AttributeError: module 'photos.views' has no attribute 'group_match'
+
+    '''
+    # path('group_match/', views.group_match, name='group_match'),
+    # path('group_match_result/', views.group_match_result, name='group_match_result')
 ]

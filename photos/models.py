@@ -120,3 +120,36 @@ def create_group_verification(sender, instance, created, **kwargs):
 @receiver(post_save, sender=Group)
 def save_group_verification(sender, instance, **kwargs):
     instance.verification.save()
+
+# made by Group5 - Sumi(21700520@handong.edu) to add new feature 'register' (2021-06-03)
+class Answer(models.Model):
+    timestamp = models.DateTimeField(default=timezone.now)
+
+    check_notice = models.CharField(max_length=10)
+    student_id = models.PositiveIntegerField(validators=[MaxValueValidator(99999999)], null=True)
+    name = models.CharField(max_length=30, blank=True, null=True)
+    gender = models.CharField(max_length=10)
+    phone = models.CharField(default="",max_length=20)
+    study_type = models.CharField(max_length=10)
+    want_member = models.CharField(max_length=120)
+
+    class1_code = models.CharField(max_length=10)
+    class1_name = models.CharField(max_length=100)
+    class1_prof = models.CharField(max_length=30)
+
+    class2_code = models.CharField(max_length=10, null=True)
+    class2_name = models.CharField(max_length=100, null=True)
+    class2_prof = models.CharField(max_length=30, null=True)
+
+    class3_code = models.CharField(max_length=10, null=True)
+    class3_name = models.CharField(max_length=100, null=True)
+    class3_prof = models.CharField(max_length=30, null=True)
+
+    demand = models.TextField(max_length=100, null=True)
+    english_ok = models.CharField(max_length=10, null=True)
+    club_study = models.CharField(max_length=10, null=True)
+    do_club = models.CharField(max_length=10, null=True)
+    club_name = models.CharField(max_length=100, null=True)
+    info_agree = models.CharField(max_length=10)
+
+# by Sumi(21700520@handong.edu)
