@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Page Title</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Style the body */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+/* Header/logo Title */
+.header {
+  padding: 30px;
+  text-align: center;
+  background: white;
+  color: black;
+}
+
+ul {
+  display: block;
+  float: left;
+  list-style-type: none;
+  margin-top: 3px;
+  margin-right: 0;
+  /* margin:0; */
+  padding: 0 0 70px 0;
+  background-color: #f1f1f1;
+  position: static;
+  height: 100%;
+  overflow: auto;
+  text-align: center;
+}
+
+img {
+  width:50px; 
+  margin-top:60px;
+}
+.user{
+  float:right; line-height:50px; font-size: 30px; font-weight: bold; margin-right: 20px;
+}
+.logout{
+  float: right; line-height:50px; font-size: 30px; color: black; text-decoration: none;
+}
+
+.logo{
+  font-size:40px; font-weight: bold; display:inline-block;
+}
+
+.guideline{
+  display:inline-block; font-size:30px; color: black; text-decoration: none; margin-left: 30px;
+}
+.topNavBar{
+  padding: 30px 50px; box-shadow: 3px 3px grey; position: -webkit-static; /* Safari & IE */
+  position: static; top: 0;
+}
+
+
+
+
+
+@media only screen and (max-width: 1400px) {
+  /* .margin-1 {margin-left: 50vw;} */
+  .margin-2 {margin-left: 1%}
+}
+
+@media only screen and (max-width: 960px) {
+  /* .margin-1 {margin-left: 30%;} */
+  .margin-2 {margin-left: 1%}
+}
+@media only screen and (max-width: 700px) {
+  /* .margin-1 {margin-left: 30%;} */
+  .margin-2 {margin-left: 1%}
+  .logo {
+    font-size: 30px;
+    font-weight: bold;
+  }
+  .guideline{
+    font-size: 25px;
+    margin-left: 5px;
+  }
+  .logout{
+    font-size: 20px;
+    margin-left: 5px;
+    line-height: 40px;
+  }
+  .user{
+    font-size: 20px;
+    margin-left: 5px;
+    line-height: 40px;
+  }
+  .navbar a {
+    float: none;
+    width: 100%;
+  }
+  .title{
+    font-size: 20px;
+  }
+  .imgSize{
+    width: 30px;
+  }
+  .fontSize{
+    font-size: 12px;
+  }
+  
+}
+
+
+@media only screen and (max-width: 530px) {
+  /* .margin-1 {margin-left: 30%;} */
+  .margin-2 {margin-left: 1%}
+  .logo {
+    font-size: 22px;
+    font-weight: bold;
+  }
+  .guideline{
+    font-size: 22px;
+    margin-left: 5px;
+  }
+  .logout{
+    font-size: 20px;
+    margin-left: 5px;
+    line-height: 24px;
+  }
+  .user{
+    font-size: 20px;
+    margin-left: 5px;
+    line-height: 24px;
+  }
+  .navbar a {
+    float: none;
+    width: 100%;
+  }
+}
+
+
+/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+/* @media screen and (max-width: 90%) {
+  .row {   
+    flex-direction: column;
+  }
+} */
+
+
+/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+@media screen and (max-width: 480px) {
+  .logo {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .guideline{
+    font-size: 20px;
+    margin-left: 5px;
+  }
+  .logout{
+    font-size: 18px;
+    margin-left: 5px;
+    line-height: 24px;
+  }
+  .user{
+    font-size: 18px;
+    margin-left: 5px;
+    line-height: 24px;
+  }
+  .navbar a {
+    float: none;
+    width: 100%;
+  }
+  .topNavBar{
+    padding: 30px 10px;
+  }
+}
+
+
+
+
+
+</style>
+</head>
+<body>
+
+<div class="topNavBar">
+  <span class="logo"> Histudy </span>
+  <a href="https://histudy.lifove.net/guideline/" class="guideline"> Guideline</a>
+  
+  <a href="#" class="logout margin-2"> LOGOUT</a> 
+  <span class="user margin-1"> Admin </span>
+ 
+</div>
+
+<div>
+  <ul>
+    <li> <a href= "https://histudy.lifove.net/rank/" class="fontSize" style="text-decoration: none;"> <img src= "{% static 'histudy_guideline/rank.png' %}" alt="rank icon" class="imgSize"> </li> Rank </a>
+    <li> <a href= "https://histudy.lifove.net/" class="fontSize" style="text-decoration: none;"> <img src="{% static 'histudy_guideline/report.png' %}" alt="report icon" class="imgSize"> </li> REPORT</a>
+    <li> <a href= "https://histudy.lifove.net/upload/" class="fontSize" style="text-decoration: none;"> <img src="{% static 'histudy_guideline/write.png' %}" alt="write icon" class="imgSize"> </li> WRITE</a>
+    <li> <a href= "https://histudy.lifove.net/profile/" class="fontSize" style="text-decoration: none;"> <img src="{% static 'histudy_guideline/group.png' %}" alt="group icon" class="imgSize"> </li> GROUP</a>
+    <li> <a href= "https://histudy.lifove.net/announce/" class="fontSize" style="text-decoration: none; color:black;"> <img src="{% static 'histudy_guideline/notice.png' %}" alt="notice icon" class="imgSize"> </li> NOTICE</a>
+  </ul>
+  
+  <div style="display: inline-block; position:static; padding:1px 16px; height:1000px;">
+    <h1 class="title"> 스터디그룹 현황 </h1>
+  </div>
+</div>
+ 
+
+
+</body>
+</html>
