@@ -199,6 +199,7 @@ def data_upload(request):
         form = DataForm(request.POST, request.FILES, user=request.user)
         if form.is_valid():
             obj = form.save()
+            obj.study_start_time = form.cleaned_data['study_start_time'] + ":" + form.cleaned_data['study_start_time_minute']
             obj.author = user
             # latestid = Data.objects.filter(author=user).order_by('-id')
             # if latestid:
@@ -297,9 +298,8 @@ def data_edit(request, pk):
             post.title = form.cleaned_data['title']
             post.text = form.cleaned_data['text']
             post.participator.set(form.cleaned_data['participator'])
-            post.study_start_time = form.cleaned_data['study_start_time']
+            post.study_start_time = form.cleaned_data['study_start_time'] + ":" + form.cleaned_data['study_start_time_minute']
             post.study_total_duration = form.cleaned_data['study_total_duration']
-
             post.save()
 
             messages.success(request, '게시물을 등록하였습니다.', extra_tags='alert')
