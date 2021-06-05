@@ -16,6 +16,7 @@ urlpatterns = [
     path('img_download/<int:year>/<int:sem>/', views.img_download, name='img_download'),
     path('img_download_page/', views.img_download_page, name='img_download_page'),
     path('user_check/', views.user_check, name='user_check'),
+    #path('mileage/', views.mileage, name='mileage'),
     path('no_student_id/<int:pk>/', views.no_student_id, name='no_student_id'),
     path('delete_userinfo/', views.delete_userinfo, name='delete_userinfo'),
     path('delete_userinfo_confirm/<int:year>/<int:sem>/<int:group_no>/', views.delete_userinfo_confirm, name='delete_userinfo_confirm'),

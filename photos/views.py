@@ -50,6 +50,38 @@ def current_sem():
         return 1
     else:
         return 2
+@csrf_exempt
+def mileage(request):
+    ctx = {}
+
+    if request.user.is_authenticated:
+        username = request.user.username
+        ctx['username'] = request.user.username
+    else:
+        return redirect('loginpage')
+
+    if username:
+        user = User.objects.get(username=username)
+        ctx['userobj'] = user
+    else:
+        return redirect('loginpage')
+
+    if request.method == 'POST':
+        criterion = int(request.POST['time'])
+        participant = request.POST['participant']
+        year = request.POST['year']
+        sem = request.POST['semester']
+        participation = int(request.POST['participation'])
+
+        try:
+            yearobj = Year.objects.get(year=year)
+        except Year.DoesNotExist:
+            yearobj = None
+    else:
+        return render(request, 'mileage.html', ctx)
+
+
+
 
 @staff_member_required
 def set_current(request):

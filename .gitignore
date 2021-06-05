@@ -11,3 +11,8 @@ uploads/
 **/migrations/**
 !photos/migrations/__init__.py
 staticfiles/
+*.swm
+*.swn
+*.swo
+*.swp
+
