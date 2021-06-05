@@ -221,7 +221,7 @@ def data_upload(request):
     else:
         ctx['code_time'] = 0
 
-    if request.method.get == "GET":
+    if request.method == "GET":
         if is_mobile or is_tablet:
             form = DataForm(user=request.user, is_mobile=True)
             form.set_is_mobile()
