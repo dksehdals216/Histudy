@@ -1739,6 +1739,8 @@ def img_download(request, year, sem):
 
     return response
 
+
+@csrf_exempt
 # made by Group5 - Sumi(21700520@handong.edu) to add new feature 'register' (2021-06-04)
 def register_form(request):
     
