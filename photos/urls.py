@@ -20,5 +20,8 @@ urlpatterns = [
     path('delete_userinfo/', views.delete_userinfo, name='delete_userinfo'),
     path('delete_userinfo_confirm/<int:year>/<int:sem>/<int:group_no>/', views.delete_userinfo_confirm, name='delete_userinfo_confirm'),
     # made by Group5 - Sumi(21700520@handong.edu) to add new feature 'register' (2021-06-03)
-    path('register_form/', views.register_form, name='register_form')
+    path('register_form/', views.register_form, name='register_form'),
+    # made by Group5 - Sumi(21700520@handong.edu) to add new feature 'group_match' (2021-06-05)
+    path('group_match/', views.group_match, name='group_match'),
+    path('group_match_result/', views.group_match_result, name='group_match_result')
 ]
