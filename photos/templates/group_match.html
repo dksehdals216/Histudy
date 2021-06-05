@@ -1,0 +1,118 @@
+{% extends "base_template.html" %}
+{% block content %}
+
+<div class="container">
+<h4>신청학생 리스트 <a class="btn btn-secondary btn-sm mr-2" href="{% url 'group_match' %}">매칭하기</a>
+</h4>
+
+<hr>
+<table class="table table-inbox table-hover" style="font-size:12px; width:100%;">
+    <tr>
+        <th></th>
+        <!-- <th>TimeStamp</th> 이것도 넣어주면 좋을 듯! 신청할 때 부분 확인해보자 -->
+        <th>No</th>
+        <th>학번</th>
+        <th>이름</th>
+        <th>성별</th>
+        <th>휴대전화번호</th>
+        <th>스터디 그룹 선호 유형</th>
+        <th>함게 스터디 하기로 한 학우정보</th>
+        <th>1순위 매칭 과목코드</th>
+        <th>1순위 매칭 과목명</th>
+        <th>1순위 매칭 교수님 성함</th>
+        <th>2순위 매칭 과목코드</th>
+        <th>2순위 매칭 과목명</th>
+        <th>2순위 매칭 교수님 성함</th>
+        <th>3순위 매칭 과목코드</th>
+        <th>3순위 매칭 과목명</th>
+        <th>3순위 매칭 교수님 성함</th>
+        <th>기타 요청사항</th>
+        <th>영어 스터디 괜찮은지</th>
+        <th>전산학회나 동아리 친구들과 함께 스터디를 하는 건지</th>
+        <th>전산학회나동아리를 하고 있는지</th>
+        <th>하고 있다면 학회, 동아리 이름</th>
+        <th>개인정보 제공 동의 여부</th>
+        <th></th>
+    </tr>
+{% for answer in list %}
+    <tr>
+        <td>
+            <!-- 순서: 1, 2, 3 ... -->
+            {{ forloop.counter }}
+        </td>
+        <!-- <td>
+            timestamp: 1, 2, 3 ... 
+            {{ answer.timestamp }}
+        </td>-->
+        <td>
+            {{ answer.student_id }}
+        </td>
+        <td>
+            {{ answer.name }}
+        </td>
+        <td>
+            {{ answer.gender }}
+        </td>
+        <td>
+            {{ answer.phone }}
+        </td>
+        <td>
+            {{ answer.study_type }}
+        </td>
+        <td>
+            {{ answer.want_member }}
+        </td>
+
+        <td>
+            {{ answer.1st_code }}
+        </td>
+        <td>
+            {{ answer.1st_name }}
+        </td>
+        <td>
+            {{ answer.1st_prof }}
+        </td>
+
+        <td>
+            {{ answer.2nd_code }}
+        </td>
+        <td>
+            {{ answer.2nd_name }}
+        </td>
+        <td>
+            {{ answer.2nd_prof }}
+        </td>
+
+        <td>
+            {{ answer.3rd_code }}
+        </td>
+        <td>
+            {{ answer.3rd_name }}
+        </td>
+        <td>
+            {{ answer.3rd_prof }}
+        </td>
+
+        <td>
+            {{ answer.demand }}
+        </td>
+        <td>
+            {{ answer.english_ok }}
+        </td>
+        <td>
+            {{ answer.club_study }}
+        </td>
+        <td>
+            {{ answer.do_club }}
+        </td>
+        <td>
+            {{ answer.club_name }}
+        </td>
+        <td>
+            {{ answer.info_agree }}
+        </td>
+{% endfor %}
+</table>
+</div>
+
+{% endblock %}
