@@ -13,7 +13,7 @@ from django.core.exceptions import ImproperlyConfigured
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-SECRET_BASE = '../HisSecret'
+SECRET_BASE = '/home/simon/Documents/Histudy/HisSecret'
 secret_file = os.path.join(SECRET_BASE, 'secret.json')
 
 with open(secret_file) as f:
@@ -31,7 +31,7 @@ def get_secret(setting, secrets=secrets):
 SECRET_KEY = get_secret("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 

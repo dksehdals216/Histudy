@@ -50,6 +50,65 @@ def current_sem():
         return 1
     else:
         return 2
+@csrf_exempt
+def mileage(request):
+    ctx = {}
+
+    if request.user.is_authenticated:
+        username = request.user.username
+        ctx['username'] = request.user.username
+    else:
+        return redirect('loginpage')
+
+    if username:
+        user = User.objects.get(username=username)
+        ctx['userobj'] = user
+    else:
+        return redirect('loginpage')
+
+    if request.method == 'POST':
+        criterion = int(request.POST['time'])
+        participant = request.POST['participant']
+        year = request.POST['year']
+        sem = request.POST['semester']
+        participation = int(request.POST['participation'])
+
+        try:
+            yearobj = Year.objects.get(year=year)
+        except Year.DoesNotExist:
+            yearobj = None
+
+    pass_stu_list = UserInfo.objects.filter(year=yearobj, sem=sem).values("group").distinct().annotate(
+            total_posts = Count('group__data', distinct=True, filter=Q(group__data__year=yearobj)&Q(group__data__sem=sem)),
+            no = F('group__no'),
+            group_id = F('group'),
+            student_id = F('group__userinfo__student_info__student_id'),
+            name = F('group__userinfo__student_info__name'),
+            total_participation = Count('group__data', distinct=True, filter=Q(group__data__year=yearobj)&Q(group__data__sem=sem)&Q(group__data__participator__student_info__student_id=F('group__userinfo__student_info__student_id'))),
+        ).order_by('no', 'student_id').filter(total_participation__gte=criterion)
+
+
+        response = HttpResponse(content_type = 'text/csv')
+        response['Content-Disposition'] = 'attachment; filename="histudy_pass_student.csv"'
+
+        writer = csv.writer(response, delimiter=',')
+        writer.writerow(['이름', '학번', '그룹번호', '그룹 총 스터디 횟수', '개인별 총 스터디 횟수', '개인별 스터디 참여시간(분)'])
+
+        for stu in pass_stu_list:
+            study = Data.objects.filter(year=yearobj, sem=sem, group_id=stu['group_id'], participator__student_info__student_id=stu['student_id']).distinct().aggregate(
+                total_time = Sum('study_total_duration'), 
+                total_participation = Count('id')
+            )
+            stu['total_time'] = study['total_time']
+            stu['total_participation'] = study['total_participation']
+            writer.writerow([stu['name'], stu['student_id'], stu['no'], stu['total_posts'], stu['total_participation'], stu['total_time']])
+
+        return response
+    else:
+        return render(request, 'mileage.html', ctx)
+
+
+
 
 @staff_member_required
 def set_current(request):
