@@ -189,7 +189,7 @@ def data_upload(request):
     else:
         ctx['code_time'] = 0
 
-    if request.method == "GET":
+    if request.method.get == "GET":
         if is_mobile or is_tablet:
             form = DataForm(user=request.user, is_mobile=True)
             form.set_is_mobile()
@@ -1770,12 +1770,14 @@ def register_form(request):
         class3_prof = request.POST['class3_prof']
 
         demand = request.POST['demand']
-        english_ok = request.POST['english_ok']
-        club_study = request.POST['club_study']
-        do_club = request.POST['do_club']
+        english_ok = request.POST.get['english_ok', False]
+        club_study = request.POST['club_study', False]
+        do_club = request.POST['do_club', False]
         club_name = request.POST['club_name']
         info_agree = request.POST['info_agree']
 
+        answer
+        
         # 이미 해당 학번의 신청 정보가 있을 경우 받아옴
         try:
             answer = Answer.objects.get(student_id=student_id)
