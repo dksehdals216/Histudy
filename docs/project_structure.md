@@ -64,7 +64,7 @@ You will find the source code here:
     |       |--asgi.py: configuration file
     |       |--settings.py: Most configuration of the Project happens here
     |       |--urls.py: url mapping for the view files of the administrator page 
-    |       |--wsgi.py: configuration file
+    |       '--wsgi.py: configuration file
     |
     |-- static
     |       |-- css 
@@ -98,10 +98,10 @@ You will find the source code here:
     |       |       |-- jquery.waypoints.min.js: jQuery plugin for easy execution for a function whenever you scroll to an element.
     |       |       '-- list.js: unused
     |       |
-    |       |-- handong_logo.png: self-explanatory
+    |       '-- handong_logo.png: self-explanatory
     |
     |-- templates
-    |       |-- registration
+    |       '-- registration
     |               |-- change_password.html: change password
     |               |-- create_userinfo.html: (student with no userinfo) contact to admin with entering student_id and name 
     |               |-- delete_userinfo.html: (staff) shows group members for delete an user with entering year, semester and group id.
