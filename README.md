@@ -6,7 +6,7 @@ Handong Global University study group management web service<br><br>
 
 [Server Installation Guide (In English)](https://github.com/dksehdals216/Histudy/blob/master/docs/install_manual_eng.md) <br>
 [Server Installation Guide (In Korean)](https://github.com/dksehdals216/Histudy/blob/master/docs/install_manual_ko.md) <br>
-[Project Structure](https://github.com/dksehdals216/Histudy/blob/master/docs/project_struct.md)
+[Project Structure](https://github.com/dksehdals216/Histudy/blob/master/docs/project_structure.md)
 
 ## 👨‍👩‍👧‍👧 Contributors
 
