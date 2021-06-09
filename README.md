@@ -1,9 +1,7 @@
 # Histudy
 
 Study group web service for HGU CSEE<br>
-Administrator can manage group and Students can upload their study reports!<br>
-
-since 2021<br><br>
+Administrator can manage group and Students can upload their study reports!<br><br>
 
 
 [Go to Histudy!](https://histudy.lifove.net) <br>
