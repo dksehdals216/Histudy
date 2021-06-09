@@ -5,7 +5,9 @@ Handong Global University study group management web service<br><br>
 [User Guide](https://www.notion.so/Histudy-Guideline-3081c03ffef44ffa92545ba787a55c31) <br>
 [Project Structure](https://github.com/dksehdals216/Histudy/blob/master/docs/project_structure.md) <br>
 [Server Installation Guide (In English)](https://github.com/dksehdals216/Histudy/blob/master/docs/install_manual_eng.md) <br>
-[Server Installation Guide (In Korean)](https://github.com/dksehdals216/Histudy/blob/master/docs/install_manual_ko.md) 
+[Server Installation Guide (In Korean)](https://github.com/dksehdals216/Histudy/blob/master/docs/install_manual_ko.md) <br><br>
+
+[New Features](https://github.com/dksehdals216/Histudy/blob/master/docs/new_features.md)
 
 ## 👨‍👩‍👧‍👧 Contributors
 
