@@ -1,13 +1,12 @@
 # Histudy
 
 Study group web service for HGU CSEE<br>
-Administrator can manage group and Students can upload their study reports!<br>
-[Go to Histudy!](https://histudy.lifove.net) <br><br>
+Administrator can manage group and Students can upload their study reports!<br><br>
 
+[Go to Histudy!](https://histudy.lifove.net) <br>
 [User Guide](https://www.notion.so/Histudy-Guideline-3081c03ffef44ffa92545ba787a55c31) <br>
 [Server Installation Guide (In English)](https://github.com/dksehdals216/Histudy/blob/master/docs/install_manual_eng.md) <br>
-[Server Installation Guide (In Korean)](https://github.com/dksehdals216/Histudy/blob/master/docs/install_manual_ko.md) <br><br>
-
+[Server Installation Guide (In Korean)](https://github.com/dksehdals216/Histudy/blob/master/docs/install_manual_ko.md) <br>
 [Project Structure](https://github.com/dksehdals216/Histudy/blob/master/docs/project_structure.md) <br>
 [New Features](https://github.com/dksehdals216/Histudy/blob/master/docs/new_features.md)
 
