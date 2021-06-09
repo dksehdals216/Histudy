@@ -1,6 +1,11 @@
 # Histudy
 
-Handong Global University study group management web service<br><br>
+Study group web service for HGU CSEE<br>
+Administrator can manage group and Students can upload their study reports!<br>
+
+since 2021<br><br>
+
+
 [Go to Histudy!](https://histudy.lifove.net) <br>
 [User Guide](https://www.notion.so/Histudy-Guideline-3081c03ffef44ffa92545ba787a55c31) <br>
 [Server Installation Guide (In English)](https://github.com/dksehdals216/Histudy/blob/master/docs/install_manual_eng.md) <br>
